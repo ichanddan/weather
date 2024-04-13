@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 export default function Weather() {
+  const [city, setCity] = useState();
+  const [callcity, setCallCity] = useState("Varanasi");
+  const [data, setData] = useState([]);
+  const apiKey = "73436dd972ac94c789a733ee2a3066c4";
+  const api = `https://api.openweathermap.org/data/2.5/weather?q=${callcity}&units=Metric&appid=${apiKey}`;
+  useEffect(() => {
+    async function getData() {
+      const req = await fetch(api);
+      const res = await req.json();
+      setData(res);
+    }
+    getData();
+  }, [callcity]);
+
   return (
     <div>
       <div className="flex items-center justify-center flex-col">
@@ -11,22 +25,30 @@ export default function Weather() {
               type="text"
               placeholder="Enter Your City"
               className="w-full outline-none p-3"
+              value={city}
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
             />
-            <button className="m-2">
+            <button
+              className="m-2"
+              onClick={() => {
+                setCallCity(city);
+              }}
+            >
               <FaSearch className="text-xl" />
             </button>
           </div>
           <div className="flex items-end justify-end h-32 p-4 dark:bg-gray-500 bg-center bg-cover">
             <p className="px-2 py-1 text-sm tracking-widest dark:text-gray-800 uppercase dark:bg-gray-100 bg-opacity-75 rounded shadow-lg">
-              bhadohi
+              {data.name}
             </p>
           </div>
           <div className="flex justify-between p-4">
             <div className="flex flex-col flex-1 gap-4">
               <div className="flex justify-between">
                 <div className="flex gap-2">
-                  <span className="text-5xl font-semibold">22</span>
-                  <span className="text-lg dark:text-gray-600">/ 28°</span>
+                  <span className="text-5xl font-semibold">{data?.main?.temp}°</span>
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
