@@ -14,7 +14,7 @@ export default function Weather() {
       setData(res);
     }
     getData();
-  }, [callcity]);
+  }, [api]);
 
   return (
     <div>
@@ -91,24 +91,27 @@ export default function Weather() {
                 </svg>
               </div>
               <p className="text-sm">
-                description
+                {/* {data?.weather[0]?.description} */}
                 <br />
-                6-10 KPH winds.
+                {data?.wind?.speed}
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-between gap-8 p-4 border-t dark:text-gray-600 dark:border-gray-300">
-            <div className="flex items-center space-x-1">
-              <span className="font-bold">8</span>
-              <span className="text-sm">UV</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <span className="font-bold">5%</span>
-              <span className="text-sm">Precip</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <span className="font-bold">14°</span>
-              <span className="text-sm">Dew Point</span>
+          <div className="p-2 border border-t-2">
+            <div className="flex items-start justify-center flex-col">
+              <div className="flex items-center justify-between gap-20">
+                <h2>Humidity</h2>
+                <h2>{data?.main?.humidity}</h2>
+              </div>
+              <div className="flex items-center justify-between gap-20"> 
+                <h2>Visibility</h2>
+                <h2>{data?.visibility} mi</h2>
+              </div>
+              <div className="flex items-center justify-between gap-20">
+                <h2>Wind Speed</h2>
+                <h2>{data?.wind?.speed}</h2>
+              </div>
+
             </div>
           </div>
         </div>
