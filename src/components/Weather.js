@@ -5,8 +5,7 @@ export default function Weather() {
   const [city, setCity] = useState();
   const [callcity, setCallCity] = useState("Varanasi");
   const [data, setData] = useState([]);
-  const apiKey = "73436dd972ac94c789a733ee2a3066c4";
-  const api = `https://api.openweathermap.org/data/2.5/weather?q=${callcity}&units=Metric&appid=${apiKey}`;
+  const api = `https://api.openweathermap.org/data/2.5/weather?q=${callcity}&units=Metric&appid=${process.env.REACT_APP_API_KEY}`;
   useEffect(() => {
     async function getData() {
       const req = await fetch(api);
